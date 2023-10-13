@@ -6,6 +6,8 @@ import jwtDecode from 'jwt-decode';
 import { tokenContext } from '../../Context/tokenContext';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMessages } from '../../Redux/messagesSlice';
 
 
 export default function Profile() {
@@ -16,15 +18,19 @@ export default function Profile() {
 
     const [userId, setUserId] = useState([])
     const [allMessages, setAllMessages] = useState([])
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state.messages)
     async function getMessages() {
-        let { data } = await axios.get('https://sara7aiti.onrender.com/api/v1/message', {
-            headers: {
-                token: localStorage.getItem('userToken')
-            }
-        });
-        console.log(data);
-        setAllMessages(data.allMessages)
+        // let { data } = await axios.get('https://sara7aiti.onrender.com/api/v1/message', {
+        //     headers: {
+        //         token: localStorage.getItem('userToken')
+        //     }
+        // });
+        dispatch(getMessages())
+
     }
+
+    console.log(state);
 
     function getUserId() {
         let decoded = jwtDecode(localStorage.getItem('userToken'));

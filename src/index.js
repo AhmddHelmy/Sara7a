@@ -8,15 +8,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CounterContextProvider from './Context/counter';
 import TokenContextProvider from './Context/tokenContext';
+import { Provider } from 'react-redux';
+import store from './Redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TokenContextProvider>
-      <CounterContextProvider>
-        <App />
-      </CounterContextProvider>
-    </TokenContextProvider>
+    <Provider store={store}>
+      <TokenContextProvider>
+        <CounterContextProvider>
+          <App />
+        </CounterContextProvider>
+      </TokenContextProvider>
+    </Provider>
   </React.StrictMode>
 );
 
